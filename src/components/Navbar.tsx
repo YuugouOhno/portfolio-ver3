@@ -2,8 +2,8 @@ import Link from 'next/link';
 
 export default function Navbar() {
   return (
-    <div className="fixed text-3xl text-red-400 z-50 ml-2 mt-10">
-      <ul>
+    <div className="text-xl text-red-400 z-50">
+      <ul className="flex space-x-4">
         <li>
           <Link href="/about">About</Link>
         </li>
@@ -14,13 +14,7 @@ export default function Navbar() {
           <Link href="/research">Research</Link>
         </li>
         <li>
-          <Link href="/project">Projects</Link>
-        </li>
-        <li>
-          <Link href="/achievement">Achievement</Link>
-        </li>
-        <li>
-          <Link href="/contact">Contact</Link>
+          <Link href="/project">Project</Link>
         </li>
         <li>
           <Link href="/article">Article</Link>
