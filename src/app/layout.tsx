@@ -1,3 +1,4 @@
+// 静的な部分を抽出 ページレイアウト
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
@@ -19,10 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={inter.className}>
-        <Header />
+      <body className={`${inter.className} m-0 p-0 w-screen h-screen overflow-hidden`}>
+        {/* <Header /> */}
         {children}
-        <Footer />
+        {/* <Footer /> */}
       </body>
     </html>
   );

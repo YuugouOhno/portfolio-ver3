@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from 'next/link';
 
-export default function Home() {
+
+import Container from '@/app/Container'
+
+const Home = () => {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <p className="text-3xl">
-      YuugouOhno
-      </p>
-    </main>
+    <Container />
   );
 }
+
+export default Home
