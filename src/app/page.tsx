@@ -1,7 +1,9 @@
+import {ThreeScene} from './three/ThreeScene';
+
 export default function Home() {
   return (
     <div>
-      home
+      <ThreeScene/>
     </div>
   );
 }
