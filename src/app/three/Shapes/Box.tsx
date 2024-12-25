@@ -3,12 +3,12 @@ import React, { useRef, useState } from 'react';
 import { Mesh } from 'three';
 import { ThreeEvent, useFrame } from '@react-three/fiber';
 
-interface StarProps {
+interface BoxProps {
     position?: [number, number, number]; // 位置（オプション）
     color?: string;
 }
   
-export function Star({position, color}: StarProps) {
+export function Box({position, color}: BoxProps) {
   const meshRef = useRef<Mesh>(null)
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
@@ -17,7 +17,7 @@ export function Star({position, color}: StarProps) {
   useFrame((state, delta) => {
     if (meshRef.current) {
         meshRef.current.rotation.x += delta * 2; // 回転速度を2倍に
-        meshRef.current.rotation.y += delta * 2; // Y軸回転も追加
+        // meshRef.current.rotation.y += delta * 2; // Y軸回転も追加
     }
   });
   
@@ -30,7 +30,7 @@ export function Star({position, color}: StarProps) {
         onPointerOver={(event: ThreeEvent<PointerEvent>) => setHover(true)}
         onPointerOut={(event: ThreeEvent<PointerEvent>) => setHover(false)}
     >
-      <sphereGeometry args={[1, 32, 32]} />
+      <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial color={hovered ? 'hotpink' : color ? color: 'orange'} />
     </mesh>
   );
