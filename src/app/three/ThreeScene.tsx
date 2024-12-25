@@ -11,7 +11,7 @@ export function ThreeScene() {
         <>
             <Canvas 
                 className='absolute inset-0'
-                camera={{ position: [30, 30, 30], fov: 75 }}
+                camera={{ position: [10, 10, 10], fov: 75 }}
             >
                 {/* ライト */}
                 <ambientLight intensity={0.5} />

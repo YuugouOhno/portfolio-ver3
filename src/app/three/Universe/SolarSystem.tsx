@@ -6,13 +6,16 @@ import { OrbitalGroup } from './OrbitalGroup';
 
 export function SolarSystem() {
     return (
-        <OrbitalGroup position={[0, 0, 0]} rotationSpeed={0.01}>
+        <>
+        <OrbitalGroup position={[0, 0, 0]} rotationSpeed={0.0} updown={true}>
             <Sun position={[0, 0, 0]} />
-            {/* 月を地球の周りに公転させる */}
-            <OrbitalGroup position={[50, 0, 0]} rotationSpeed={0.01*(365-1)}>
-                <Earth position={[0, 0, 0]} />
-                <Moon position={[2, 0, 0]} />
+            <OrbitalGroup position={[0, 0, 0]} rotationSpeed={0.01}>
+                <Earth position={[5, 0, 0]} />
+                <OrbitalGroup position={[5, 0, 0]} rotationSpeed={0.01 * (365 - 1)}>
+                    <Moon position={[2, 0, 0]} />
+                </OrbitalGroup>
             </OrbitalGroup>
         </OrbitalGroup>
+        </>
     );
 }
