@@ -5,15 +5,17 @@ import { BaseStar } from './BaseStar';
 
 interface EarthProps {
     position?: [number, number, number];
+    radius?:number;
+    rotationSpeed?:number;
 }
 
-export function Earth({position}:EarthProps) {
+export function Earth({position,radius, rotationSpeed}:EarthProps) {
     return (
         <BaseStar
             texturePath="/textures/earthmap.png"
             position={position}
-            radius={1}
-            rotationSpeed={0.002} 
+            radius={radius}
+            rotationSpeed={rotationSpeed}
         />
     );
 }
