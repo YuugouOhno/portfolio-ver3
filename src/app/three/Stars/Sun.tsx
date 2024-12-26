@@ -4,15 +4,17 @@ import { BaseStar } from './BaseStar';
 
 interface SunProps {
     position?: [number, number, number];
+    radius?:number;
+    rotationSpeed?:number;
 }
 
-export function Sun({position}:SunProps) {
+export function Sun({position,radius, rotationSpeed}:SunProps) {
     return (
         <BaseStar
             texturePath="/textures/sunmap.png"
             position={position}
-            radius={2}
-            rotationSpeed={0.0005} 
+            radius={radius}
+            rotationSpeed={rotationSpeed}
         />
     );
 }

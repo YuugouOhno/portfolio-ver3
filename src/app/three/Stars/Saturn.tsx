@@ -5,15 +5,17 @@ import { BaseStar } from './BaseStar';
 
 interface SaturnProps {
     position?: [number, number, number];
+    radius?:number;
+    rotationSpeed?:number;
 }
 
-export function Saturn({position}:SaturnProps) {
+export function Saturn({position,radius, rotationSpeed}:SaturnProps) {
     return (
         <BaseStar
             texturePath="/textures/saturnmap.png"
             position={position}
-            radius={9.5} // 土星の相対的なサイズ
-            rotationSpeed={0.0006} // 自転速度（例）
+            radius={radius}
+            rotationSpeed={rotationSpeed}
         />
     );
 }

@@ -5,15 +5,17 @@ import { BaseStar } from './BaseStar';
 
 interface VenusProps {
     position?: [number, number, number];
+    radius?:number;
+    rotationSpeed?:number;
 }
 
-export function Venus({position}:VenusProps) {
+export function Venus({position,radius, rotationSpeed}:VenusProps) {
     return (
         <BaseStar
             texturePath="/textures/venusmap.png"
             position={position}
-            radius={0.95} // 金星の相対的なサイズ
-            rotationSpeed={0.002} // 自転速度（例）
+            radius={radius}
+            rotationSpeed={rotationSpeed}
         />
     );
 }

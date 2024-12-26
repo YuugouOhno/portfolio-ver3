@@ -5,15 +5,17 @@ import { BaseStar } from './BaseStar';
 
 interface NeptuneProps {
     position?: [number, number, number];
+    radius?:number;
+    rotationSpeed?:number;
 }
 
-export function Neptune({position}:NeptuneProps) {
+export function Neptune({position,radius, rotationSpeed}:NeptuneProps) {
     return (
         <BaseStar
             texturePath="/textures/neptunemap.png"
             position={position}
-            radius={3.9} // 海王星の相対的なサイズ
-            rotationSpeed={0.0008} // 自転速度（例）
+            radius={radius}
+            rotationSpeed={rotationSpeed}
         />
     );
 }

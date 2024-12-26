@@ -11,7 +11,12 @@ export function ThreeScene() {
         <>
             <Canvas 
                 className='absolute inset-0'
-                camera={{ position: [10, 10, 10], fov: 75 }}
+                camera={{
+                    position: [0, 200, 200], // カメラ位置 (遠めに設定)
+                    fov: 75,                 // 視野角 (Field of View) → デフォルト75, 小さくするとズームイン、大きくするとズームアウト
+                    near: 1,                 // 手前の描画距離
+                    far: 100000,               // 奥の描画距離
+                }}
             >
                 {/* ライト */}
                 <ambientLight intensity={0.5} />
@@ -30,7 +35,7 @@ export function ThreeScene() {
                     id="timeSpeed"
                     type="range"
                     min="0.01"
-                    max="3"
+                    max="10"
                     step="0.1"
                     defaultValue={1}
                     onChange={(e) => setTimeSpeed(Number(e.target.value))}

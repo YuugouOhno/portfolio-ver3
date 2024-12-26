@@ -5,15 +5,17 @@ import { BaseStar } from './BaseStar';
 
 interface UranusProps {
     position?: [number, number, number];
+    radius?:number;
+    rotationSpeed?:number;
 }
 
-export function Uranus({position}:UranusProps) {
+export function Uranus({position,radius, rotationSpeed}:UranusProps) {
     return (
         <BaseStar
             texturePath="/textures/uranusmap.png"
             position={position}
-            radius={4.0} // 天王星の相対的なサイズ
-            rotationSpeed={0.0007} // 自転速度（例）
+            radius={radius}
+            rotationSpeed={rotationSpeed}
         />
     );
 }

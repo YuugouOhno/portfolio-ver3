@@ -5,15 +5,17 @@ import { BaseStar } from './BaseStar';
 
 interface MoonProps {
     position?: [number, number, number];
+    radius?:number;
+    rotationSpeed?:number;
 }
 
-export function Moon({position}:MoonProps) {
+export function Moon({position,radius, rotationSpeed}:MoonProps) {
     return (
         <BaseStar
             texturePath="/textures/moonmap.png"
             position={position}
-            radius={0.5}
-            rotationSpeed={0.005} 
+            radius={radius}
+            rotationSpeed={rotationSpeed}
         />
     );
 }
