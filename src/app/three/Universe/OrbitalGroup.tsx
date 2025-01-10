@@ -4,7 +4,7 @@ import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
 import { Group } from 'three';
-import { useTimeSpeed } from '../Context/TimeSpeedContext';
+import { useTimeSpeed } from '../../Context/TimeSpeedContext';
 
 interface OrbitalGroupProps {
   children: React.ReactNode;
