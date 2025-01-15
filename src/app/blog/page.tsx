@@ -13,7 +13,7 @@ type Post = {
 
 async function getPosts(): Promise<Post[]> {
     // postsディレクトリのパス
-    const postsDirectory = path.join(process.cwd(), 'src/app/blog/posts');
+    const postsDirectory = path.join(process.cwd(), 'src/app/blog/_posts');
     // ファイル一覧を取得
     const filenames = fs.readdirSync(postsDirectory);
 
@@ -43,26 +43,24 @@ export default async function blog() {
     console.log(posts);
 
     return (
-        <div className="h-screen w-screen flex justify-center items-center">
-            <ul>
+        <div className="p-4 h-screen py-36 px-20">
+            <ul className="grid grid-cols-3 gap-4">
                 {posts.map((post) => (
-                <li key={post.slug}>
-                    <div className='border-t border-b border-gray-300'>
-                        <Link href={`/blog/posts/${post.slug}`} className='text-blue-500'>
-                        <p className='text-2xl'>{post.title}</p>
-                        <Image 
-                            src={`/blog/posts/${post.slug}.png`}
-                            width={200}
-                            height={200}
-                            alt={post.title || "サムネ"}
-                            className="w-auto h-48"
-                        />
+                    <li key={post.slug} className="border border-gray-300 rounded-lg p-2 m-2">
+                        <Link href={`/blog/posts/${post.slug}`} className="block">
+                            <Image 
+                                src={`/blog/posts/${post.slug}.png`}
+                                width={200}
+                                height={200}
+                                alt={post.title || "サムネ"}
+                                className="w-full h-auto rounded"
+                            />
+                            <p className="text-center text-xl mt-2 text-blue-500 font-bold">{post.title}</p>
+                            <p className="text-right text-md">{post.date}</p>
                         </Link>
-                    </div>
-                    
-                </li>
+                    </li>
                 ))}
             </ul>
         </div>
-    )
+    );
 }
