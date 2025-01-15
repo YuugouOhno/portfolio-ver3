@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import Link from 'next/link';
+import Image from 'next/image';
 
 type Post = {
     slug: string;
@@ -48,10 +49,15 @@ export default async function blog() {
                 <li key={post.slug}>
                     <div className='border-t border-b border-gray-300'>
                         <Link href={`/blog/posts/${post.slug}`} className='text-blue-500'>
-                            {post.title}
+                        <p className='text-2xl'>{post.title}</p>
+                        <Image 
+                            src={`/blog/posts/${post.slug}.png`}
+                            width={200}
+                            height={200}
+                            alt={post.title || "サムネ"}
+                            className="w-auto h-48"
+                        />
                         </Link>
-                        <p>{post.date}</p>
-                        <p>{post.description}</p>
                     </div>
                     
                 </li>
