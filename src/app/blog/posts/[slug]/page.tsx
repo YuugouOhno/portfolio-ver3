@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { Metadata } from 'next';
+import { marked } from 'marked';
 
 // 投稿データを取得する関数
 async function getPost(slug: string) {
@@ -47,7 +48,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
 
             <div className="prose mt-8">
                 {/* Markdownの内容をHTMLに変換して表示 */}
-                <div dangerouslySetInnerHTML={{ __html: post.content }} />
+                <div dangerouslySetInnerHTML={{ __html: marked(post.content) }} />
             </div>
 
             <div className="mt-8">
