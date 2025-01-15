@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import Link from 'next/link';
 
 type Post = {
     slug: string;
@@ -42,15 +43,17 @@ export default async function blog() {
 
     return (
         <div className="h-screen w-screen flex justify-center items-center">
-            <h1>Blog Posts</h1>
             <ul>
                 {posts.map((post) => (
                 <li key={post.slug}>
-                    <a href={`/blog/posts/${post.slug}`}>
-                    <h2>{post.title}</h2>
-                    <p>{post.date}</p>
-                    <p>{post.description}</p>
-                    </a>
+                    <div className='border-t border-b border-gray-300'>
+                        <Link href={`/blog/posts/${post.slug}`} className='text-blue-500'>
+                            {post.title}
+                        </Link>
+                        <p>{post.date}</p>
+                        <p>{post.description}</p>
+                    </div>
+                    
                 </li>
                 ))}
             </ul>
