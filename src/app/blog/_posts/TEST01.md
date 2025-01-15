@@ -5,6 +5,7 @@ description: 'Next.jsにthree.jsを使って宇宙空間を生成する方法を
 ---
 
 Next.js と　three.jsでかっこいい宇宙を作っていきます。
+# Next.js の準備
 
 ## Next.js の準備
 

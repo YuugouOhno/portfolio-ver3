@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/marked": "^6.0.0",
     "@types/node": "^20",
     "@types/react": "^19",

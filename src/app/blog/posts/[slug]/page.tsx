@@ -38,14 +38,6 @@ export default async function PostPage({ params }: { params: { slug: string } })
             <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
             <p className="text-gray-500 mb-8">{post.date}</p>
 
-            {/* <Image 
-                src={`/blog/posts/${params.slug}.png`} 
-                width={800} 
-                height={400} 
-                alt={post.title || 'サムネ'}
-                className="w-full h-auto rounded"
-            /> */}
-
             <div className="prose mt-8">
                 {/* Markdownの内容をHTMLに変換して表示 */}
                 <div dangerouslySetInnerHTML={{ __html: marked(post.content) }} />
