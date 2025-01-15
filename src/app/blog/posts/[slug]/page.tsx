@@ -19,7 +19,8 @@ async function getPost(slug: string) {
 
 // 動的なメタデータを生成
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-    const post = await getPost(params.slug);
+    const { slug } = await params;
+    const post = await getPost(slug);
     return {
         title: post.title,
         description: post.description,
@@ -28,10 +29,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 // 詳細画面のコンポーネント
 export default async function PostPage({ params }: { params: { slug: string } }) {
-    const post = await getPost(params.slug);
+    const { slug } = await params;
+    const post = await getPost(slug);
 
     return (
-        <div className="p-4 max-w-4xl mx-auto">
+        <div className="p-4 max-w-4xl mx-auto h-screen py-36 px-20">
             <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
             <p className="text-gray-500 mb-8">{post.date}</p>
 
