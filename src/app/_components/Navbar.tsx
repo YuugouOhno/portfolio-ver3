@@ -56,12 +56,6 @@ export default function Navbar() {
             <Link href="/blog" className="text-gray-600 hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium">
               Blog
             </Link>
-            {/* <Link href="/services" className="text-gray-600 hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium">
-              Services
-            </Link>
-            <Link href="/contact" className="text-gray-600 hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium">
-              Contact
-            </Link> */}
           </div>
         </div>
       </div>
@@ -70,17 +64,11 @@ export default function Navbar() {
       {isOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <Link href="/" className="block text-gray-600 hover:text-blue-500 px-3 py-2 rounded-md text-base font-medium">
+            <Link href="/" className="text-gray-600 hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium">
               Home
             </Link>
-            <Link href="/about" className="block text-gray-600 hover:text-blue-500 px-3 py-2 rounded-md text-base font-medium">
-              About
-            </Link>
-            <Link href="/services" className="block text-gray-600 hover:text-blue-500 px-3 py-2 rounded-md text-base font-medium">
-              Services
-            </Link>
-            <Link href="/contact" className="block text-gray-600 hover:text-blue-500 px-3 py-2 rounded-md text-base font-medium">
-              Contact
+            <Link href="/blog" className="text-gray-600 hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium">
+              Blog
             </Link>
           </div>
         </div>
