@@ -11,7 +11,7 @@ function CameraController() {
         console.log("画面のsize",windowHeight)
         const progress = Math.min(scrollY / windowHeight, 1);
 
-        const start = { x: 0, y: 200, z: 200 };
+        const start = { x: 0, y: 60, z: 150 };
         const end = { x: 50, y: 50, z: 50 };
 
         camera.position.set(
@@ -20,7 +20,7 @@ function CameraController() {
             start.z + progress * (end.z - start.z)
         );
 
-        const lookStart = { x: 0, y: 0, z: 0 };
+        const lookStart = { x:150 , y: 0, z: 0 };
         const lookEnd = { x: 2, y: 0, z: 0 };
 
         camera.lookAt(
