@@ -53,7 +53,7 @@ export default function Navbar() {
             <Link href="/" className="text-gray-600 hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium">
               Home
             </Link>
-            <Link href="/blog" className="text-gray-600 hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium">
+            <Link href="https://zero-kara.com/" className="text-gray-600 hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium">
               Blog
             </Link>
           </div>
