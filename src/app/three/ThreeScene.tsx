@@ -1,6 +1,5 @@
 'use client';
 import { Canvas } from '@react-three/fiber'
-import { Grid } from './Universe/Grid';
 import { SolarSystem } from './Universe/SolarSystem'
 import {TimeSpeedController} from './Universe/TimeSpeedController';
 import { CameraController } from './CameraController';
@@ -20,7 +19,6 @@ export function ThreeScene() {
                 <CameraController />
                 <ambientLight intensity={0.5} />
                 <directionalLight position={[5, 5, 5]} intensity={1} />
-                <Grid size={100} divisions={10}/>
                 <SolarSystem />                
             </Canvas>
             <TimeSpeedController/>
