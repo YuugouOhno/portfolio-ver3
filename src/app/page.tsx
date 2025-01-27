@@ -1,6 +1,7 @@
 import {ThreeScene} from './three/ThreeScene';
 import { TimeSpeedProvider } from './Context/TimeSpeedContext';
 import { ScrollProvider } from './Context/ScrollContext';
+import TiltCard from './_components/TiltCard';
 
 export default function Home() {
   return (
@@ -14,7 +15,13 @@ export default function Home() {
           {/* スクロール可能なコンテンツ */}
           <div className="relative z-10 h-screen overflow-y-scroll">
               <section className="h-screen flex justify-center items-center ">
-                  <h1 className="text-4xl font-bold">YuugouOhno</h1>
+                <TiltCard
+                  icon="/YuugouOhno.png"
+                  name="Yuugou Ohno"
+                  affiliation="Itsubo Lab / AIST"
+                  twitter="YuugouOhno"
+                  wantedly="https://www.wantedly.com/id/YuugouOhno"
+                />
               </section>
               <section className="h-screen flex justify-center items-center ">
                   <h1 className="text-4xl font-bold">いい感じに宇宙旅行したい</h1>
