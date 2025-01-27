@@ -2,7 +2,6 @@
 
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Mesh } from 'three';
 import { Group } from 'three';
 import { useTimeSpeed } from '../../Context/TimeSpeedContext';
 
@@ -13,7 +12,7 @@ interface OrbitalGroupProps {
   updown?: boolean;
 }
 
-export function OrbitalGroup({ children, rotationSpeed = 0.01, position = [0, 0, 0], updown = false }: OrbitalGroupProps) {
+export function OrbitalGroup({ children, rotationSpeed = 0.01, position = [0, 0, 0] }: OrbitalGroupProps) {
   const groupRef = useRef<Group>(null);
   const { timeSpeed } = useTimeSpeed(); // Context から時間スピードを取得
 
@@ -24,25 +23,5 @@ export function OrbitalGroup({ children, rotationSpeed = 0.01, position = [0, 0,
     }
   });
 
-  const sunRef = useRef<Mesh>(null);
-  const angleRef = useRef(0);
-
-  if (updown) {
-    useFrame((state, delta) => {
-        if (sunRef.current) {
-          // 角度を更新 (速度は任意で調整してください)
-          angleRef.current += 0.5 * delta;
-    
-          // 半径5で (0, y, z) 平面上を円運動
-          const radius = 5;
-          const y = radius * Math.cos(angleRef.current);
-          const x = radius * Math.sin(angleRef.current);
-    
-          // Sunの position は (x=0, y, z) に
-          sunRef.current.position.set(x, y, 0);
-        }
-    });
-  }
-
-  return <group ref={updown ?sunRef:groupRef} position={position}>{children}</group>;
+  return <group ref={groupRef} position={position}>{children}</group>;
 }

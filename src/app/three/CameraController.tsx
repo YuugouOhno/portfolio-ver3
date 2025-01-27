@@ -8,6 +8,7 @@ function CameraController() {
 
     useEffect(() => {
         console.log("画面のスクロール状況",scrollY)
+        console.log("画面のsize",windowHeight)
         const progress = Math.min(scrollY / windowHeight, 1);
 
         const start = { x: 0, y: 200, z: 200 };

@@ -10,7 +10,7 @@ const ScrollContext = createContext<ScrollContextProps | undefined>(undefined);
 
 export function ScrollProvider({ children }: { children: ReactNode }) {
     const [scrollY, setScrollY] = useState(0);
-    const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+    const [windowHeight, setWindowHeight] = useState(1);
 
     useEffect(() => {
         // スクロール可能な要素を取得
@@ -24,14 +24,15 @@ export function ScrollProvider({ children }: { children: ReactNode }) {
         const handleScroll = () => {
             const newScrollY = scrollableElement.scrollTop; // 要素のスクロール位置を取得
             setScrollY(newScrollY);
-            console.log("スクロール位置: ", newScrollY);
         };
 
         const handleResize = () => setWindowHeight(window.innerHeight);
-
+        handleResize();
+        
         // イベントを登録
         scrollableElement.addEventListener('scroll', handleScroll);
         window.addEventListener('resize', handleResize);
+        
 
         return () => {
             scrollableElement.removeEventListener('scroll', handleScroll);

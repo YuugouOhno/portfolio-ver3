@@ -14,10 +14,10 @@ export default function Home() {
           {/* スクロール可能なコンテンツ */}
           <div className="relative z-10 h-screen overflow-y-scroll">
               <section className="h-screen flex justify-center items-center ">
-                  <h1 className="text-4xl font-bold">地球を表示しています</h1>
+                  <h1 className="text-4xl font-bold">YuugouOhno</h1>
               </section>
               <section className="h-screen flex justify-center items-center ">
-                  <h1 className="text-4xl font-bold">月を表示しています</h1>
+                  <h1 className="text-4xl font-bold">いい感じに宇宙旅行したい</h1>
               </section>
           </div>
       </div>
