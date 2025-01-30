@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "YuugouOhno",
   description: "大野優剛のポートフォリオになりたい何か",
+  other: {
+    "google-site-verification": "r7_3mQg4DdwGEHuu1vqurY5XsLir6BLvV3R4rTfN8gw",
+  },
 };
 
 export default function RootLayout({
