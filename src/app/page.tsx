@@ -17,8 +17,8 @@ export default function Home() {
               <section className="h-screen flex justify-center items-center ">
                 <AnimatedCard
                   image="/YuugouOhno.png"
-                  name="Yuugou Ohno"
-                  affiliation="Itsubo Lab / AIST"
+                  name_ja="大野優剛"
+                  affiliation="Itsubo Lab / AIST / ReLU Branch"
                   twitter="YuugouOhno"
                   wantedly="https://www.wantedly.com/id/YuugouOhno"
                 />

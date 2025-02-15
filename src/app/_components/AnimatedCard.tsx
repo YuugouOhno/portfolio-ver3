@@ -8,13 +8,14 @@ import Image from "next/image"
 
 interface AnimatedCardProps {
   image: string
-  name: string
+  name_ja: string
+  name_en?: string
   affiliation: string
   twitter: string
   wantedly: string
 }
 
-export const AnimatedCard: React.FC<AnimatedCardProps> = ({ image, name, affiliation, twitter, wantedly }) => {
+export const AnimatedCard: React.FC<AnimatedCardProps> = ({ image, name_ja,name_en, affiliation, twitter, wantedly }) => {
   const cardRef = useRef<HTMLDivElement>(null)
   const [isHovered, setIsHovered] = useState(false)
   const { tiltX, tiltY, mouseX, mouseY } = useTilt(cardRef)
@@ -51,9 +52,10 @@ export const AnimatedCard: React.FC<AnimatedCardProps> = ({ image, name, affilia
       <div className="relative p-6 flex flex-col h-full justify-between z-10">
         <div className="flex flex-col items-center">
           <div className="w-32 h-32 rounded-full overflow-hidden mb-4">
-            <Image src={image || "/placeholder.svg"} alt={name} width={128} height={128} className="object-cover" />
+            <Image src={image || "/placeholder.svg"} alt={name_ja} width={128} height={128} className="object-cover" />
           </div>
-          <h2 className="text-2xl font-bold text-white mb-2 text-center">{name}</h2>
+          <h1 className="text-4xl font-bold text-white mb-2 text-center font-jp">{name_ja}</h1>
+          {name_en&&<h2 className="text-2xl font-bold text-white mb-2 text-center">{name_en}</h2>}
           <p className="text-gray-200 mb-4 text-center">{affiliation}</p>
         </div>
         <div className="flex flex-col items-center space-y-2">
