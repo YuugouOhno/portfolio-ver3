@@ -54,7 +54,7 @@ export const AnimatedCard: React.FC<AnimatedCardProps> = ({ image, name_ja,name_
           <div className="w-32 h-32 rounded-full overflow-hidden mb-4">
             <Image src={image || "/placeholder.svg"} alt={name_ja} width={128} height={128} className="object-cover" />
           </div>
-          <h1 className="text-4xl font-bold text-white mb-2 text-center font-jp">{name_ja}</h1>
+          <h1 className="text-4xl font-bold text-white mb-2 text-center">{name_ja}</h1>
           {name_en&&<h2 className="text-2xl font-bold text-white mb-2 text-center">{name_en}</h2>}
           <p className="text-gray-200 mb-4 text-center">{affiliation}</p>
         </div>
