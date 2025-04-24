@@ -52,7 +52,15 @@ export const AnimatedCard: React.FC<AnimatedCardProps> = ({ image, name_ja,name_
       <div className="relative p-6 flex flex-col h-full justify-between z-10">
         <div className="flex flex-col items-center">
           <div className="w-32 h-32 rounded-full overflow-hidden mb-4">
-            <Image src={image || "/placeholder.svg"} alt={name_ja} width={128} height={128} className="object-cover" />
+            <Image 
+              src={image || "/placeholder.svg"} 
+              alt={name_ja} 
+              width={128} 
+              height={128} 
+              className="object-cover"
+              priority
+              quality={75}
+            />
           </div>
           <h1 className="text-4xl font-bold text-white mb-2 text-center">{name_ja}</h1>
           {name_en&&<h2 className="text-2xl font-bold text-white mb-2 text-center">{name_en}</h2>}
