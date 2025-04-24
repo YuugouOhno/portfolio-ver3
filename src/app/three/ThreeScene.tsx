@@ -15,6 +15,13 @@ export function ThreeScene() {
                     near: 1,                 // 手前の描画距離
                     far: 100000,               // 奥の描画距離
                 }}
+                performance={{ min: 0.5 }}
+                dpr={[1, 2]}
+                gl={{
+                    antialias: false,
+                    powerPreference: "high-performance",
+                    alpha: false,
+                }}
             >
                 <CameraController />
                 <ambientLight intensity={0.5} />

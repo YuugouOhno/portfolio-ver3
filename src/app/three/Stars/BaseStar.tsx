@@ -2,7 +2,7 @@
 
 import React, { useRef, forwardRef } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
-import { Mesh, TextureLoader } from 'three';
+import { Mesh, TextureLoader, LinearFilter } from 'three';
 
 interface BaseStarProps {
   texturePath: string;      // テクスチャのパス
@@ -22,6 +22,9 @@ export const BaseStar = forwardRef<Mesh, BaseStarProps>(
 
     // テクスチャを読み込む
     const texture = useLoader(TextureLoader, texturePath);
+    texture.generateMipmaps = false;
+    texture.minFilter = LinearFilter;
+    texture.magFilter = LinearFilter;
 
     // 回転アニメーション
     useFrame(() => {
