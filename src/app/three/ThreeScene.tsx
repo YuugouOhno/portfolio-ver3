@@ -1,8 +1,29 @@
 'use client';
-import { Canvas } from '@react-three/fiber'
+import { Canvas, useFrame } from '@react-three/fiber'
 import { SolarSystem } from './Universe/SolarSystem'
-import {TimeSpeedController} from './Universe/TimeSpeedController';
+// import {TimeSpeedController} from './Universe/TimeSpeedController';
 import { CameraController } from './CameraController';
+import { useRef, useState } from 'react';
+import { useRender } from '../Context/RenderContext';
+
+// レンダリング完了を検知するコンポーネント
+function RenderLogger() {
+  const [hasLogged, setHasLogged] = useState(false);
+  const frameCount = useRef(0);
+  const { setRendered } = useRender();
+
+  useFrame(() => {
+    // 数フレーム後にログを出力（テクスチャの読み込みが完了する時間を考慮）
+    frameCount.current += 1;
+    if (!hasLogged && frameCount.current > 10) {
+      console.log('読み込み完了！');
+      setHasLogged(true);
+      setRendered(true); // コンテキストの状態を更新
+    }
+  });
+
+  return null;
+}
 
 export function ThreeScene() {
     return (
@@ -23,12 +44,13 @@ export function ThreeScene() {
                     alpha: false,
                 }}
             >
+                <RenderLogger />
                 <CameraController />
                 <ambientLight intensity={0.5} />
                 <directionalLight position={[5, 5, 5]} intensity={1} />
                 <SolarSystem />                
             </Canvas>
-            <TimeSpeedController/>
+            {/* <TimeSpeedController/> */}
         </>
     )
 }
