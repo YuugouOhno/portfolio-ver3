@@ -7,6 +7,8 @@ import { RenderProvider } from './Context/RenderContext';
 import { MainContent } from './_components/content/MainContent';
 import { LoadingScreenOverlay } from './_components/loading/LoadingScreenOverlay';
 
+export const dynamic = 'force-static';
+export const fetchCache = 'default-cache';
 
 export default function Home() {
   return (
