@@ -12,7 +12,7 @@ interface UranusProps {
 export function Uranus({position,radius, rotationSpeed}:UranusProps) {
     return (
         <BaseStar
-            texturePath="/textures/uranusmap.png"
+            texturePath="/textures/uranusmap.webp"
             position={position}
             radius={radius}
             rotationSpeed={rotationSpeed}

@@ -12,7 +12,7 @@ interface JupiterProps {
 export function Jupiter({position,radius, rotationSpeed}:JupiterProps) {
     return (
         <BaseStar
-            texturePath="/textures/jupitermap.png"
+            texturePath="/textures/jupitermap.webp"
             position={position}
             radius={radius}
             rotationSpeed={rotationSpeed}

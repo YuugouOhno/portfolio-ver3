@@ -12,7 +12,7 @@ interface MarsProps {
 export function Mars({position,radius, rotationSpeed}:MarsProps) {
     return (
         <BaseStar
-            texturePath="/textures/marsmap.png"
+            texturePath="/textures/marsmap.webp"
             position={position}
             radius={radius}
             rotationSpeed={rotationSpeed}

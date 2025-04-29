@@ -12,7 +12,7 @@ interface VenusProps {
 export function Venus({position,radius, rotationSpeed}:VenusProps) {
     return (
         <BaseStar
-            texturePath="/textures/venusmap.png"
+            texturePath="/textures/venusmap.webp"
             position={position}
             radius={radius}
             rotationSpeed={rotationSpeed}

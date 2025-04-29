@@ -12,7 +12,7 @@ interface MercuryProps {
 export function Mercury({position,radius, rotationSpeed}:MercuryProps) {
     return (
         <BaseStar
-            texturePath="/textures/mercurymap.png"
+            texturePath="/textures/mercurymap.webp"
             position={position}
             radius={radius}
             rotationSpeed={rotationSpeed}
