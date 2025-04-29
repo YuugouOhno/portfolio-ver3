@@ -12,7 +12,7 @@ function CameraController() {
         const progress = Math.min(scrollY / windowHeight, 1);
 
         const start = { x: 0, y: 60, z: 150 };
-        const end = { x: 50, y: 50, z: 50 };
+        const end = { x: 150, y: 150, z: 150 };
 
         camera.position.set(
             start.x + progress * (end.x - start.x),
@@ -21,7 +21,7 @@ function CameraController() {
         );
 
         const lookStart = { x:150 , y: 0, z: 0 };
-        const lookEnd = { x: 2, y: 0, z: 0 };
+        const lookEnd = { x: 0, y: 0, z: 0 };
 
         camera.lookAt(
             lookStart.x + progress * (lookEnd.x - lookStart.x),
