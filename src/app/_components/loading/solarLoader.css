@@ -1,0 +1,213 @@
+/* ========== 400 px ステージ・完全版 ========== */
+
+/* 舞台 */
+.slr-system{position:relative;width:400px;height:400px;}
+
+/* 太陽 */
+.slr-sun{
+  position:absolute;top:50%;left:50%;
+  width:44px;height:44px;transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:radial-gradient(circle,#ffec8b 0%,#ffac33 70%,#d95b00 100%);
+  animation:slr-pulse 1.5s ease-in-out infinite;
+}
+
+/* 軌道リング */
+.slr-orbit{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%) rotate(var(--start-angle));
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:50%;
+  transform-origin:center;
+  animation:slr-rotate var(--orbit-duration) linear infinite;
+  animation-delay:var(--orbit-delay);
+  box-sizing:border-box;
+}
+
+/* 惑星本体 ── 常に transform で中心合わせ ── */
+.slr-planet{
+  /* ① 最終位置は「右端 / 中心揃え」 (= translate(-50%,-50%)) */
+  /* ② そこから X 方向にオフセットさせて一直線で接近          */
+  position:absolute;top:50%;left:100%;
+  width:8px;height:8px;border-radius:50%;
+  background:#fff;            /* 上書きされるがデフォ色 */
+  opacity:0;
+  transform:
+    translateX(var(--start-offset))      /* 軌道外から… */
+    translate(-50%,-50%)                /* 中心合わせ   */
+    scale(var(--start-scale));          /* 巨大サイズ   */
+  animation:slr-fly-in 0.8s ease-out forwards;
+  animation-delay:var(--delay);
+  will-change:transform,opacity;
+}
+
+/* ========== 惑星別パラメータ (軌道拡大 + 出現サイズ×2) ========== */
+
+.slr-mercury{
+  --delay:0s;          --orbit-delay:.8s;    --orbit-duration:2s;
+  --start-angle:40deg; width:80px;height:80px;
+}
+.slr-mercury .slr-planet{
+  background:#bfb7ad;
+  --start-offset:260%; --start-scale:16;
+}
+
+.slr-venus{
+  --delay:.25s;        --orbit-delay:1.05s;  --orbit-duration:4.5s;
+  --start-angle:190deg;width:100px;height:100px;
+}
+.slr-venus .slr-planet{
+  background:#e7c28f;
+  --start-offset:-290%; --start-scale:20;
+}
+
+.slr-earth{
+  --delay:.5s;         --orbit-delay:1.3s;   --orbit-duration:6s;
+  --start-angle:95deg; width:125px;height:125px;
+}
+.slr-earth .slr-planet{
+  background:#3da5ff;
+  --start-offset:320%; --start-scale:24;
+}
+
+.slr-mars{
+  --delay:.75s;        --orbit-delay:1.55s;  --orbit-duration:8.5s;
+  --start-angle:275deg;width:150px;height:150px;
+}
+.slr-mars .slr-planet{
+  background:#c1440e;
+  --start-offset:-350%; --start-scale:18;
+}
+
+.slr-jupiter{
+  --delay:1s;          --orbit-delay:1.8s;   --orbit-duration:13s;
+  --start-angle:10deg; width:240px;height:240px;
+}
+.slr-jupiter .slr-planet{
+  width:12px;height:12px;background:#d9a066;
+  --start-offset:480%; --start-scale:40;
+}
+
+.slr-saturn{
+  --delay:1.25s;       --orbit-delay:2.05s;  --orbit-duration:16.5s;
+  --start-angle:145deg;width:310px;height:310px;
+}
+.slr-saturn .slr-planet{
+  width:10px;height:10px;background:#e6d7b0;
+  --start-offset:-600%; --start-scale:36;
+}
+
+.slr-uranus{
+  --delay:1.5s;        --orbit-delay:2.3s;   --orbit-duration:22.5s;
+  --start-angle:225deg;width:360px;height:360px;
+}
+.slr-uranus .slr-planet{
+  background:#7ad6f6;
+  --start-offset:680%; --start-scale:28;
+}
+
+.slr-neptune{
+  --delay:1.75s;       --orbit-delay:2.55s;  --orbit-duration:27.5s;
+  --start-angle:315deg;width:390px;height:390px;
+}
+.slr-neptune .slr-planet{
+  background:#4154ff;
+  --start-offset:-750%; --start-scale:32;
+}
+
+/* ========== キーフレーム ========== */
+
+/* 太陽の脈動 */
+@keyframes slr-pulse{
+  0%,100%{transform:translate(-50%,-50%) scale(1);}
+  50%    {transform:translate(-50%,-50%) scale(1.12);}
+}
+
+/* 惑星：一直線 → 縮小 → 合流 */
+@keyframes slr-fly-in{
+  0%{
+    opacity:0;
+    transform:
+      translateX(var(--start-offset))
+      translate(-50%,-50%)
+      scale(var(--start-scale));
+  }
+  60%{
+    opacity:1;
+    transform:
+      translateX(calc(var(--start-offset)*.2))
+      translate(-50%,-50%)
+      scale(1.3);
+  }
+  100%{
+    opacity:1;
+    transform:
+      translateX(0)
+      translate(-50%,-50%)
+      scale(1);
+  }
+}
+
+/* 公転（2×速） */
+@keyframes slr-rotate{
+  from{transform:translate(-50%,-50%) rotate(var(--start-angle));}
+  to  {transform:translate(-50%,-50%) rotate(calc(var(--start-angle) + 360deg));}
+}
+
+/* ===== 宇宙エフェクト：ネビュラ＋多層スター ===== */
+.starfield{
+    background:#000;                     /* ベースは完全な闇 */
+    overflow:hidden;
+  }
+  
+  /* ── 漂うネビュラ ── */
+  .starfield::before{
+    content:"";
+    position:absolute;inset:-50%;        /* 画面より大きくして回転ズーム */
+    background:
+      radial-gradient(circle at 30% 30%, rgba(84,0,255,.3) 0%, transparent 60%),
+      radial-gradient(circle at 70% 70%, rgba(0,190,255,.25) 0%, transparent 55%),
+      radial-gradient(circle at 80% 25%, rgba(255,0,160,.2) 0%, transparent 60%);
+    filter:blur(120px) saturate(160%);
+    animation:nebula-drift 60s linear infinite;
+    pointer-events:none;
+    opacity:.35;
+  }
+  
+  /* ── 近景の瞬く星 ── */
+  .starfield::after{
+    content:"";
+    position:absolute;inset:0;
+    pointer-events:none;
+    background-repeat:repeat;
+    background-size:600px 600px;
+    background-image:
+      radial-gradient(#ffffff 1px, transparent 1.6px),
+      radial-gradient(#ffffffb0 1px, transparent 1.6px),
+      radial-gradient(#ffffff80 1px, transparent 1.6px);
+    background-position:0 0, 200px 300px, 400px 150px;
+    animation:star-scroll 120s linear infinite, star-twinkle 10s ease-in-out infinite alternate;
+    opacity:.4;
+  }
+  
+  /* ===== キーフレーム ===== */
+  
+  /* ネビュラ：ゆっくり回転＆縮拡で“漂う” */
+  @keyframes nebula-drift{
+    0%  {transform:rotate(0deg) scale(1);}
+    50% {transform:rotate(180deg) scale(1.2);}
+    100%{transform:rotate(360deg) scale(1);}
+  }
+  
+  /* 星層：ゆっくり斜めにスライドしてパララックス感 */
+  @keyframes star-scroll{
+    0%  {background-position:0 0, 200px 300px, 400px 150px;}
+    100%{background-position:-600px -600px, -400px -300px, -200px -750px;}
+  }
+  
+  /* 星のフェードイン・アウト（チカチカ） */
+  @keyframes star-twinkle{
+    0%  {opacity:.3;}
+    50% {opacity:.55;}
+    100%{opacity:.3;}
+  }
