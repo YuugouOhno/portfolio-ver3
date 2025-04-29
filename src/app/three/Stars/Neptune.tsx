@@ -12,7 +12,7 @@ interface NeptuneProps {
 export function Neptune({position,radius, rotationSpeed}:NeptuneProps) {
     return (
         <BaseStar
-            texturePath="/textures/neptunemap.png"
+            texturePath="/textures/neptunemap.webp"
             position={position}
             radius={radius}
             rotationSpeed={rotationSpeed}

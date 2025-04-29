@@ -12,7 +12,7 @@ interface SaturnProps {
 export function Saturn({position,radius, rotationSpeed}:SaturnProps) {
     return (
         <BaseStar
-            texturePath="/textures/saturnmap.png"
+            texturePath="/textures/saturnmap.webp"
             position={position}
             radius={radius}
             rotationSpeed={rotationSpeed}

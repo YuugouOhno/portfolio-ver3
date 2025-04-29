@@ -12,7 +12,7 @@ interface MoonProps {
 export function Moon({position,radius, rotationSpeed}:MoonProps) {
     return (
         <BaseStar
-            texturePath="/textures/moonmap.png"
+            texturePath="/textures/moonmap.webp"
             position={position}
             radius={radius}
             rotationSpeed={rotationSpeed}

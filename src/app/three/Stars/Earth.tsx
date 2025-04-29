@@ -12,7 +12,7 @@ interface EarthProps {
 export function Earth({position,radius, rotationSpeed}:EarthProps) {
     return (
         <BaseStar
-            texturePath="/textures/earthmap.png"
+            texturePath="/textures/earthmap.webp"
             position={position}
             radius={radius}
             rotationSpeed={rotationSpeed}

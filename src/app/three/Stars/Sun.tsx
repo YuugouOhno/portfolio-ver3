@@ -11,7 +11,7 @@ interface SunProps {
 export function Sun({position,radius, rotationSpeed}:SunProps) {
     return (
         <BaseStar
-            texturePath="/textures/sunmap.png"
+            texturePath="/textures/sunmap.webp"
             position={position}
             radius={radius}
             rotationSpeed={rotationSpeed}
