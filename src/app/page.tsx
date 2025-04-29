@@ -1,7 +1,7 @@
 'use client';
 import dynamicImport from 'next/dynamic'
+import { useEffect, useState } from 'react'
 
-// import { ThreeScene } from './three/ThreeScene';
 import { TimeSpeedProvider } from './Context/TimeSpeedContext';
 import { ScrollProvider } from './Context/ScrollContext';
 import { RenderProvider } from './Context/RenderContext';
@@ -12,12 +12,21 @@ export const dynamic = 'force-static';
 export const fetchCache = 'default-cache';
 
 const ThreeScene = dynamicImport(() => import('./three/ThreeScene').then(mod => mod.ThreeScene), {
-  ssr: false,
-  loading: () => <div className="h-screen flex items-center justify-center">Loading 3D…</div>,
+  ssr: false
 })
 
 
 export default function Home() {
+  const [show3D, setShow3D] = useState(false)
+
+  useEffect(() => {
+    const id = window.requestIdleCallback(
+      () => setShow3D(true),
+      { timeout: 3000 } // 3秒以内に空いたら読み込む
+    )
+    return () => cancelIdleCallback(id)
+  }, [])
+
   return (
     <RenderProvider>
       <LoadingScreenOverlay/>
@@ -26,7 +35,7 @@ export default function Home() {
         <div className="w-screen h-screen relative">
             <div className="fixed inset-0 -z-10">
               <TimeSpeedProvider>
-                <ThreeScene/>
+                {show3D && <ThreeScene/>}
               </TimeSpeedProvider>
             </div>
             {/* スクロール可能なコンテンツ */}
