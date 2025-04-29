@@ -6,17 +6,6 @@ interface ScrollContextProps {
     windowHeight: number;
 }
 
-function debounce<T extends (...args: any[]) => void>(
-    func: T,
-    wait: number
-): (...args: Parameters<T>) => void {
-    let timeout: NodeJS.Timeout;
-    return (...args: Parameters<T>) => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func(...args), wait);
-    };
-}
-
 const ScrollContext = createContext<ScrollContextProps | undefined>(undefined);
 
 export function ScrollProvider({ children }: { children: ReactNode }) {
@@ -32,14 +21,14 @@ export function ScrollProvider({ children }: { children: ReactNode }) {
             return;
         }
 
-        const handleScroll = debounce(() => {
+        const handleScroll =() => {
             const newScrollY = scrollableElement.scrollTop; // 要素のスクロール位置を取得
             setScrollY(newScrollY);
-        }, 16); // 約60fps
+        };
 
-        const handleResize = debounce(() => {
+        const handleResize = () => {
             setWindowHeight(window.innerHeight);
-        }, 100);
+        };
 
         handleResize();
         
