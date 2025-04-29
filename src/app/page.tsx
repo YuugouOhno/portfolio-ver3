@@ -1,6 +1,7 @@
 'use client';
+import dynamicImport from 'next/dynamic'
 
-import { ThreeScene } from './three/ThreeScene';
+// import { ThreeScene } from './three/ThreeScene';
 import { TimeSpeedProvider } from './Context/TimeSpeedContext';
 import { ScrollProvider } from './Context/ScrollContext';
 import { RenderProvider } from './Context/RenderContext';
@@ -9,6 +10,12 @@ import { LoadingScreenOverlay } from './_components/loading/LoadingScreenOverlay
 
 export const dynamic = 'force-static';
 export const fetchCache = 'default-cache';
+
+const ThreeScene = dynamicImport(() => import('./three/ThreeScene').then(mod => mod.ThreeScene), {
+  ssr: false,
+  loading: () => <div className="h-screen flex items-center justify-center">Loading 3D…</div>,
+})
+
 
 export default function Home() {
   return (
