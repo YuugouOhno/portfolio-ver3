@@ -1,7 +1,7 @@
 'use client';
 import { Canvas } from '@react-three/fiber'
 import { SolarSystem } from './Universe/SolarSystem'
-import {TimeSpeedController} from './Universe/TimeSpeedController';
+// import {TimeSpeedController} from './Universe/TimeSpeedController';
 import { CameraController } from './CameraController';
 
 export function ThreeScene() {
@@ -28,7 +28,7 @@ export function ThreeScene() {
                 <directionalLight position={[5, 5, 5]} intensity={1} />
                 <SolarSystem />                
             </Canvas>
-            <TimeSpeedController/>
+            {/* <TimeSpeedController/> */}
         </>
     )
 }
