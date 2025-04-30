@@ -6,9 +6,10 @@ export function ProfileSection() {
       <AnimatedCard
         image="/YuugouOhno.png"
         name_ja="大野優剛"
-        affiliation="Itsubo Lab / AIST / ReLU Branch"
+        name_en="YuugouOhno"
+        affiliation="Waseda University / AIST"
         twitter="YuugouOhno"
-        wantedly="https://www.wantedly.com/id/YuugouOhno"
+        detail="https://www.notion.so/yuugouohno/1de6858a9ed680058d56dbb1666cc409"
       />
     </section>
   );

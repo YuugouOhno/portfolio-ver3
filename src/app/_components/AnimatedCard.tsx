@@ -2,7 +2,7 @@
 import { useRef, useState } from "react"
 import { motion } from "framer-motion"
 import { FaTwitter } from "react-icons/fa"
-import { SiWantedly } from "react-icons/si"
+import { SiNotion } from "react-icons/si"
 import { useTilt } from "@/app/hooks/useTilt"
 import Image from "next/image"
 
@@ -12,10 +12,10 @@ interface AnimatedCardProps {
   name_en?: string
   affiliation: string
   twitter: string
-  wantedly: string
+  detail: string
 }
 
-export const AnimatedCard: React.FC<AnimatedCardProps> = ({ image, name_ja,name_en, affiliation, twitter, wantedly }) => {
+export const AnimatedCard: React.FC<AnimatedCardProps> = ({ image, name_ja,name_en, affiliation, twitter, detail }) => {
   const cardRef = useRef<HTMLDivElement>(null)
   const [isHovered, setIsHovered] = useState(false)
   const { tiltX, tiltY, mouseX, mouseY } = useTilt(cardRef)
@@ -76,13 +76,13 @@ export const AnimatedCard: React.FC<AnimatedCardProps> = ({ image, name_ja,name_
             <FaTwitter className="mr-2" />@{twitter}
           </a>
           <a
-            href={`https://www.wantedly.com/id/${wantedly}`}
+            href={detail}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center text-green-300 hover:underline"
+            className="flex items-center text-purple-300 hover:underline font-bold"
           >
-            <SiWantedly className="mr-2" />
-            Wantedly Profile
+            <SiNotion className="mr-2" />
+            詳しいプロフィールを見る
           </a>
         </div>
       </div>
