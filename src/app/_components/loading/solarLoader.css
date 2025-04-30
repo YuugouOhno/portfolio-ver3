@@ -163,7 +163,7 @@
   /* ── 漂うネビュラ ── */
   .starfield::before{
     content:"";
-    position:absolute;inset:-50%;        /* 画面より大きくして回転ズーム */
+    position:absolute;inset:0;        /* 画面より大きくして回転ズーム */
     background:
       radial-gradient(circle at 30% 30%, rgba(84,0,255,.3) 0%, transparent 60%),
       radial-gradient(circle at 70% 70%, rgba(0,190,255,.25) 0%, transparent 55%),
