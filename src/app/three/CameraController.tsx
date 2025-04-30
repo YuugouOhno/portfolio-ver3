@@ -1,53 +1,128 @@
-import { useThree } from '@react-three/fiber';
-import { useEffect,useMemo } from 'react';
+'use client';
+
+import { useThree, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { useMemo } from 'react';
 import { useScroll } from '../Context/ScrollContext';
 
-function CameraController() {
-    const { camera } = useThree();
-    const { scrollY, windowHeight } = useScroll();
+/* 汎用ユーティリティ ------------------------------------------------- */
+const lerpV = (a: THREE.Vector3, b: THREE.Vector3, t: number) =>
+  a.clone().lerp(b, t);
+const ease  = (t: number) => THREE.MathUtils.smoothstep(t, 0, 1);
 
-    /* ───────── B→C 用の 2 次 Bézier 曲線を 1 度だけ生成 ───────── */
+/* 型 ------------------------------------------------------------------ */
+type SegmentCtx = {
+  t: number;               // 0–1 区間進捗
+  earth: THREE.Object3D | null;
+  vh: number;
+};
+type Segment = {
+  /** 区間開始*vh と長さ*vh */
+  start: number;
+  length: number;
+  /** 目標位置を返す */
+  pos: (ctx: SegmentCtx) => THREE.Vector3;
+  /** 視線ターゲットを返す */
+  look: (ctx: SegmentCtx) => THREE.Vector3;
+  /** 追従係数 (0=即追従, 0.1=ヌルっと) */
+  follow?: number;
+  /** 角度追従係数 */
+  slerp?: number;
+};
+
+/* 定数 ---------------------------------------------------------------- */
+const A = new THREE.Vector3(0, 60, 150);
+const B = new THREE.Vector3(150, 150, 150);
+const OFFSET = new THREE.Vector3(0, 50, 150);
+const ORIGIN = new THREE.Vector3(0, 0, 0);
+
+/* メインコンポーネント ------------------------------------------------ */
+export function CameraController() {
+  const { camera, scene } = useThree();
+  const { scrollY, windowHeight: vh } = useScroll();
+
+  /* 一度だけ作ればいい計算を useMemo に寄せる */
   const bezierBC = useMemo(() => {
-    const B = new THREE.Vector3(150, 150, 150);
-    const D = new THREE.Vector3(0, -300, 0);       // 真下に落ちる
+    const P = new THREE.Vector3(0, -300, 150);
     const C = new THREE.Vector3(-150, 150, 150);
-    return new THREE.QuadraticBezierCurve3(B, D, C);
+    return new THREE.QuadraticBezierCurve3(B, P, C);
   }, []);
+  const pointC = useMemo(() => bezierBC.getPoint(1), [bezierBC]);
 
-    useEffect(() => {
-    // 0〜1 : A→B、1〜2 : B→C
-    const segment1 = Math.min(scrollY / windowHeight, 1);               // 0〜1
-    const segment2 = Math.min(Math.max(scrollY - windowHeight, 0) / windowHeight, 1); // 0〜1
+  /* 区間テーブル ------------------------------------------------------ */
+  const segments: Segment[] = [
+    /* ---- A → B ---------------------------------------------------- */
+    {
+      start: 0,
+      length: 1,
+      pos: ({ t }) => lerpV(A, B, t),
+      look: ({ t }) => new THREE.Vector3(150 - 150 * t, 0, 0),
+    },
+    /* ---- B → C ---------------------------------------------------- */
+    {
+      start: 1,
+      length: 1,
+      pos: ({ t }) => bezierBC.getPoint(t),
+      look: () => ORIGIN.clone(),
+    },
+    /* ---- C → D (Earth 接近) -------------------------------------- */
+    {
+      start: 2,
+      length: 1,
+      pos: ({ t, earth }) =>
+        earth
+          ? lerpV(pointC, earth.position.clone().add(OFFSET), ease(t))
+          : pointC.clone(),
+      look: ({ t, earth }) =>
+        earth ? lerpV(ORIGIN, earth.position, ease(t)) : ORIGIN.clone(),
+    },
+    /* ---- D → E (並走) -------------------------------------------- */
+    {
+      start: 3,
+      length: Infinity, // 無限に続く
+      pos: ({ earth }) =>
+        earth ? earth.position.clone().add(OFFSET) : pointC.clone(),
+      look: ({ earth }) => (earth ? earth.position.clone() : ORIGIN.clone()),
+      follow: 0.1, // 位置追従をヌルっと
+      slerp: 0.15, // 向き追従をヌルっと
+    },
+    /*  ←←   ここに新しい区間を足すだけで拡張可能   →→ */
+  ];
 
-    if (scrollY < windowHeight) {
-      /* ---------- A → B ---------- */
-      const start = { x: 0, y: 60, z: 150 };
-      const end   = { x: 150, y: 150, z: 150 };
+  /* メインループ ----------------------------------------------------- */
+  useFrame(() => {
+    const earth = scene.getObjectByName('Earth') as THREE.Object3D | null;
 
-      camera.position.set(
-        start.x + segment1 * (end.x - start.x),
-        start.y + segment1 * (end.y - start.y),
-        start.z + segment1 * (end.z - start.z)
-      );
+    /* 今どの区間にいるか判定 */
+    const seg = segments.find(
+      ({ start, length }) =>
+        scrollY >= start * vh && scrollY < (start + length) * vh,
+    )!;
 
-      const lookStart = { x: 150, y: 0, z: 0 };
-      const lookEnd   = { x: 0,   y: 0, z: 0 };
+    /* その区間内での 0–1 進捗 */
+    const t = THREE.MathUtils.clamp(
+      (scrollY - seg.start * vh) / (seg.length * vh),
+      0,
+      1,
+    );
 
-      camera.lookAt(
-        lookStart.x + segment1 * (lookEnd.x - lookStart.x),
-        lookStart.y + segment1 * (lookEnd.y - lookStart.y),
-        lookStart.z + segment1 * (lookEnd.z - lookStart.z)
-      );
-    } else {
-        /* ---------- B → C (270° 相当の大弧) ---------- */
-        const pos = bezierBC.getPoint(segment2);   // 2 次 Bézier 曲線上の座標
-        camera.position.copy(pos);
-        camera.lookAt(0, 0, 0);                // 原点を見続ける
-      }
-  }, [camera, scrollY, windowHeight,bezierBC]);
+    const ctx: SegmentCtx = { t, earth, vh };
 
-    return null;
+    /* ---- 目標位置 & 視線を算出 ---- */
+    const targetPos = seg.pos(ctx);
+    const lookAtVec = seg.look(ctx);
+
+    /* ---- カメラ移動 ---- */
+    camera.position.lerp(
+      targetPos,
+      seg.follow !== undefined ? seg.follow : 1,
+    );
+
+    /* ---- カメラ向き ---- */
+    const m = new THREE.Matrix4().lookAt(camera.position, lookAtVec, camera.up);
+    const q = new THREE.Quaternion().setFromRotationMatrix(m);
+    camera.quaternion.slerp(q, seg.slerp ?? 1);
+  });
+
+  return null;
 }
-
-export { CameraController };

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { BaseStar } from './BaseStar';
+import { BaseStarWithName } from './BaseStarWithName';
 
 interface EarthProps {
     position?: [number, number, number];
@@ -11,7 +11,8 @@ interface EarthProps {
 
 export function Earth({position,radius, rotationSpeed}:EarthProps) {
     return (
-        <BaseStar
+        <BaseStarWithName
+            name="Earth" 
             texturePath="/textures/earthmap.webp"
             position={position}
             radius={radius}
