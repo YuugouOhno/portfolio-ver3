@@ -28,19 +28,19 @@ export default function Home() {
 
   return (
     <RenderProvider>
-      <LoadingScreenOverlay/>
-      
       <ScrollProvider>
         <div className="w-screen h-screen relative">
-            <div className="fixed inset-0 -z-10">
-              <TimeSpeedProvider>
-                {show3D && <ThreeScene/>}
-              </TimeSpeedProvider>
-            </div>
-            {/* スクロール可能なコンテンツ */}
-            <div className="relative z-10 h-screen overflow-y-scroll">
-              <MainContent />
-            </div>
+          {/* スクロール可能なコンテンツ */}
+          <div className="relative z-20 h-screen overflow-y-scroll">
+            <MainContent />
+          </div>
+          {/* ▼ ThreeScene 背景 + LoadingOverlay */}
+          <div className="fixed inset-0 -z-10">
+            <TimeSpeedProvider>
+              {show3D && <ThreeScene/>}
+              <LoadingScreenOverlay/>
+            </TimeSpeedProvider>
+          </div>
         </div>
       </ScrollProvider>
     </RenderProvider>
