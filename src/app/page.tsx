@@ -7,24 +7,23 @@ import { ScrollProvider } from './Context/ScrollContext';
 import { RenderProvider } from './Context/RenderContext';
 import { MainContent } from './_components/content/MainContent';
 import { LoadingScreenOverlay } from './_components/loading/LoadingScreenOverlay';
+import { requestIdle, cancelIdle } from './utils/requestIdle';
 
 export const dynamic = 'force-static';
 export const fetchCache = 'default-cache';
 
-const ThreeScene = dynamicImport(() => import('./three/ThreeScene').then(mod => mod.ThreeScene), {
-  ssr: false
-})
+const ThreeScene = dynamicImport(
+  () => import('./three/ThreeScene').then(mod => mod.ThreeScene), 
+  {ssr: false}
+);
 
 
 export default function Home() {
   const [show3D, setShow3D] = useState(false)
 
   useEffect(() => {
-    const id = window.requestIdleCallback(
-      () => setShow3D(true),
-      { timeout: 3000 } // 3秒以内に空いたら読み込む
-    )
-    return () => cancelIdleCallback(id)
+    const id = requestIdle(() => setShow3D(true), { timeout: 3000 });
+    return () => cancelIdle(id);
   }, [])
 
   return (
